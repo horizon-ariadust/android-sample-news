@@ -1,6 +1,7 @@
 package app.ariadust.striga.feature.article.overview
 
 import app.ariadust.striga.feature.article.view.*
+import app.ariadust.striga.feature.view.header
 import app.ariadust.striga.feature.view.loading
 import app.ariadust.striga.feature.view.verticalCarousel
 import app.ariadust.striga.feature.view.verticalGridCarousel
@@ -23,6 +24,10 @@ class ArticleOverviewController : TypedEpoxyController<ArticleOverviewUiModel>()
             }
 
             if (data.topHeadlines != null) {
+                header {
+                    id("topHeadlinesHeader")
+                    title("Top Headlines")
+                }
                 verticalCarousel {
                     id("topHeadlines")
                     hasFixedSize(true)
@@ -40,6 +45,10 @@ class ArticleOverviewController : TypedEpoxyController<ArticleOverviewUiModel>()
             }
 
             if (data.sources != null) {
+                header {
+                    id("sourcesHeader")
+                    title("Sources")
+                }
                 verticalGridCarousel {
                     id("sources")
                     hasFixedSize(true)

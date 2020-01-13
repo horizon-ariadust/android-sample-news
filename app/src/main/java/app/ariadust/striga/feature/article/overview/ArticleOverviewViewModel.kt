@@ -37,7 +37,7 @@ class ArticleOverviewViewModel(
 
     private fun loadData() {
         disposables.add(
-                Observable.zip(
+                Observable.combineLatest(
                         getTopHeadlines().toObservable(), getSources().toObservable(),
                         BiFunction<List<Article>, List<Source>, ArticleOverviewUiModel> { topHeadlines, sources ->
                             uiModel.copy(

@@ -17,7 +17,7 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash)
 
         disposables.add(
-            Observable.timer(3, TimeUnit.SECONDS)
+            Observable.timer(300, TimeUnit.MILLISECONDS)
                 .subscribe({
                     toArticleOverview()
                 }, {
@@ -33,5 +33,6 @@ class SplashActivity : BaseActivity() {
 
     private fun toArticleOverview() {
         startActivity(articleOverviewIntent())
+        finish()
     }
 }

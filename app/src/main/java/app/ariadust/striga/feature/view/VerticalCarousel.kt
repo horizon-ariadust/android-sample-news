@@ -2,6 +2,7 @@ package app.ariadust.striga.feature.view
 
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
+import app.ariadust.striga.R
 import com.airbnb.epoxy.Carousel
 import com.airbnb.epoxy.ModelView
 
