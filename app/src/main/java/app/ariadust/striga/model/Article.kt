@@ -6,7 +6,7 @@ import app.ariadust.striga.network.model.Article as ApiArticle
 data class Article(
     val id: String,
     val title: String,
-    val description: String,
+    val description: String?,
     val coverUrl: String,
     val url: String
 ) {

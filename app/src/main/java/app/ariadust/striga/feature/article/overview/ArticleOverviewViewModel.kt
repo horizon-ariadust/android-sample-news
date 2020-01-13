@@ -7,7 +7,6 @@ import app.ariadust.striga.model.Article
 import app.ariadust.striga.model.Source
 import app.ariadust.striga.network.NewsApi
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 
@@ -38,7 +37,7 @@ class ArticleOverviewViewModel(
     private fun loadData() {
         disposables.add(
                 Observable.combineLatest(
-                        getTopHeadlines().toObservable(), getSources().toObservable(),
+                        getTopHeadlines(), getSources(),
                         BiFunction<List<Article>, List<Source>, ArticleOverviewUiModel> { topHeadlines, sources ->
                             uiModel.copy(
                                     topHeadlines = topHeadlines,
@@ -53,14 +52,16 @@ class ArticleOverviewViewModel(
         )
     }
 
-    private fun getTopHeadlines(): Single<List<Article>> {
+    private fun getTopHeadlines(): Observable<List<Article>> {
         return newsApi.getTopHeadlines()
                 .map { collection -> collection.data.take(5).map { Article(it) } }
+                .toObservable()
     }
 
-    private fun getSources(): Single<List<Source>> {
+    private fun getSources(): Observable<List<Source>> {
         return newsApi.getSources()
                 .map { collection -> collection.data.map { Source(it) } }
+                .toObservable()
     }
 
     fun invalidate() {

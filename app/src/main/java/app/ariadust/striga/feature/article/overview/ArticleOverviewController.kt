@@ -8,6 +8,7 @@ import app.ariadust.striga.feature.view.verticalGridCarousel
 import app.ariadust.striga.model.Article
 import app.ariadust.striga.model.Source
 import com.airbnb.epoxy.TypedEpoxyController
+import com.airbnb.epoxy.carousel
 
 class ArticleOverviewController : TypedEpoxyController<ArticleOverviewUiModel>() {
 
@@ -23,7 +24,7 @@ class ArticleOverviewController : TypedEpoxyController<ArticleOverviewUiModel>()
                 }
             }
 
-            if (data.topHeadlines != null) {
+            if (!data.topHeadlines.isNullOrEmpty()) {
                 header {
                     id("topHeadlinesHeader")
                     title("Top Headlines")
@@ -44,7 +45,28 @@ class ArticleOverviewController : TypedEpoxyController<ArticleOverviewUiModel>()
                 }
             }
 
-            if (data.sources != null) {
+            if (!data.topHeadlines.isNullOrEmpty()) {
+                header {
+                    id("LatestHeader")
+                    title("Latest News")
+                }
+                carousel {
+                    id("latest")
+                    hasFixedSize(true)
+                    models(data.topHeadlines.map {
+                        ArticleSmallModel_()
+                                .id(it.id)
+                                .article(it)
+                                .listener(object : ArticleSmallModel.Listener {
+                                    override fun onClickArticle(article: Article) {
+                                        listener?.onClickArticle(article)
+                                    }
+                                })
+                    })
+                }
+            }
+
+            if (!data.sources.isNullOrEmpty()) {
                 header {
                     id("sourcesHeader")
                     title("Sources")
